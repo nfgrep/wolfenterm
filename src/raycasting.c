@@ -21,7 +21,7 @@ int cast_ray(int* ray_results, map* m1, player* p1)
         int tmp = x;
         x = y;
         y = tmp;
-        while(m1->data[x][y])
+        while(m1->data[y][x])
         {
             err += abslope;
             if(err >= 0.5)
@@ -30,7 +30,7 @@ int cast_ray(int* ray_results, map* m1, player* p1)
                 err -= 1.0;
             }
             x++;
-            printf("Steep: Cur Char: %c\n",m1->data[x][y]);
+            printf("Steep: Cur Char: %c\n",m1->data[y][x]);
         }
     }
     else
