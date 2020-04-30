@@ -7,6 +7,36 @@
 
 int cast_ray(int* ray_results, map* m1, player* p1)
 {
+    /*--TODO--
+        - get the int arith system working with radian rotation
+            - maybe just use an int to represent 1 of 256 possible angles?
+    */
+
+//    //Bresenhams Line with int arith
+//
+//    int dx = abs(x1-x0);
+//    int sx = x0<x1 ? 1 : -1;
+//    int dy = -abs(y1-y0);
+//    int sy = y0<y1 ? 1 : -1;
+//    int err = dx+dy, e2=0;
+//
+//    while(1)
+//    {
+//        printf("CURR: %c\n", m1->data[y0][x0];
+//        if(x0==x1 && y0==y1) break;
+//        e2 = 2*err;
+//        if(e2 >= dy)
+//        {
+//            err += dy;
+//            x0 += sx;
+//        }
+//        if(e2 <= dx)
+//        {
+//            err += dx;
+//            y0 += sy;
+//        }
+//    }
+
     double slope = tan(p1->rot);
     double err = 0.0;
     double abslope = fabs(slope);
