@@ -28,7 +28,7 @@ int read_file(char* filename, player* p1, map* m1)
             {
                 c = fgetc(fp);
                 map[i][j] = c;
-                if(c == PLAYER_IDENT_CHAR)
+                if(c == PLAYER_ID_CHAR)
                 {
                     printf("playerchar found: %c, at %d,%d\n",c,j,i);
 
