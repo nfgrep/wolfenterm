@@ -1,2 +1,3 @@
 # wolfenterm
-A 2D raycasting engine that renders images in ASCII within the terminal
+A 2D "wolfenstein" style renderer.
+Uses simple ASCII text as maps.
