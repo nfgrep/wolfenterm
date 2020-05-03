@@ -14,23 +14,25 @@ void rot_line_abt_p0(int x0, int y0, int* x1, int* y1, double rot)
     *y1 = (((sinT * xN) + (cosT * xN)) + y0);
 }
 
-int cast_rays(int* ray_results, map* m1, player* p1)
+int cast_rays(int* dists, map* m1, player* p1)
 {
-    /*--TODO--
-        - change len to a const
-        - make the loop iter 1 less, move declaration of x1 out
-    */
+    int dist_count;
+    int px = p1->x, py = p1->y;
+    int x0, y0, x1, y1;
+    int i, len = NUM_PLR_RAYS * 2;
 
-    int x0, y0;
-
-    int i, len = 14;
+    //Iterates over arr of player rays
     for(i=0; i<len; i+=2)
     {
-        x0 = p1->x;
-        y0 = p1->y;
-        int x1 = p1->rays[i];
-        int y1 = p1->rays[i+1];
-        printf("y1: %d\n",y1);
+        dist_count = 0;
+        x0 = px;
+        y0 = py;
+        x1 = p1->rays[i];
+        y1 = p1->rays[i+1];
+
+        //TODO:
+        //Adding players rotation to each ray
+        //rot_line_abt_p0(x0,y0,&x1,&y1,p1->rot);
 
         //Bresenhams Line with int arith
         int dx = abs(x1-x0);
@@ -43,6 +45,7 @@ int cast_rays(int* ray_results, map* m1, player* p1)
         {
             printf("CURR: %c\n", m1->data[y0][x0]);
             if(x0==x1 && y0==y1) break;
+            if(m1->data[y0][x0] != '0' && m1->data[y0][x0] != '2') break;
             e2 = 2*err;
             if(e2 >= dy)
             {
@@ -54,49 +57,10 @@ int cast_rays(int* ray_results, map* m1, player* p1)
                 err += dx;
                 y0 += sy;
             }
+            dist_count++;
         }
+        dists[i/2] = dist_count;
     }
-//Old code, using slope and float arith.
-//    double slope = tan(p1->rot);
-//    double err = 0.0;
-//    double abslope = fabs(slope);
-//    int y = p1->y, x = p1->x;
-//    int y_step = (p1->rot > M_PI) ? -1 : 1;
-//    char steep = (abslope >= 1) ? 1 : 0;
-//    printf("cur_player: %d,%d - %f\n",p1->x,p1->y,p1->rot);
-//    printf("slope: %f\n",slope);
-//    //If steepline, swap x and y
-//    if(steep)
-//    {
-//        int tmp = x;
-//        x = y;
-//        y = tmp;
-//        while(m1->data[y][x])
-//        {
-//            err += abslope;
-//            if(err >= 0.5)
-//            {
-//                y+=y_step;
-//                err -= 1.0;
-//            }
-//            x++;
-//            printf("Steep: Cur Char: %c\n",m1->data[y][x]);
-//        }
-//    }
-//    else
-//    {
-//        while(m1->data[y][x])
-//        {
-//            err += abslope;
-//            if(err >= 0.5)
-//            {
-//                y+=y_step;
-//                err -= 1.0;
-//            }
-//            x++;
-//            printf("Cur Char: %c\n",m1->data[y][x]);
-//        }
-//    }
     return 0;
 }
 
