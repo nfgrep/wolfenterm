@@ -9,7 +9,7 @@ typedef struct p
     unsigned int y; 
     double rot; //players rotation in radians
     //The x1 points for the end of each ray relative to the player
-    int rays[NUM_PLR_RAYS*2];
+    int rays[PLAYER_NUM_RAYS*2];
 }player;
 
 #endif

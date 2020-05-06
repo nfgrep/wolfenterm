@@ -10,19 +10,16 @@ void rot_line_abt_p0(int x0, int y0, int* x1, int* y1, double rot)
     double cosT = cos(rot);
     double sinT = sin(rot);
     double xN = (*x1 - x0), yN = (*y1 - y0);
-    //printf("x1,y1: %d,%d Before Rot.",*x1,*y1);
     *x1 = (((cosT * xN) + ((sinT * -1.0) * yN)) + x0);
     *y1 = (((sinT * xN) + (cosT * yN)) + y0);
-    //printf("x1,y1: %d,%d After Rot.\n",*x1,*y1);
-    //printf("x0,y0: %d,%d",x0,y0);
 }
 
-int cast_rays(int* dists, map* m1, player* p1)
+void cast_rays(int* dists, map* m1, player* p1)
 {
     int dist_count;
     int px = p1->x, py = p1->y;
     int x0, y0, x1, y1;
-    int i, len = NUM_PLR_RAYS * 2;
+    int i, len = PLAYER_NUM_RAYS * 2;
 
     //Iterates over arr of player rays
     for(i=0; i<len; i+=2)
@@ -55,18 +52,18 @@ int cast_rays(int* dists, map* m1, player* p1)
             {
                 err += dy;
                 x0 += sx;
+                dist_count++;
             }
             if(e2 <= dx)
             {
                 err += dx;
                 y0 += sy;
+                dist_count++;
             }
-            dist_count++;
         }
-        printf("Curr: %c\n",m1->data[y0][x0]);
+        printf("(%d,%d): %c as dec: %d\n",x0,0,m1->data[y0][x0],m1->data[y0][x0]);
         dists[i/2] = dist_count;
     }
-    return 0;
 }
 
 

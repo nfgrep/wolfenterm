@@ -7,12 +7,11 @@
 
 int read_file(char* filename, player* p1, map* m1)
 {
-    short i=1, j=1;
+    short i=0, j=0;
     char map[MAPMAX][MAPMAX] ={ 0 };
     FILE *fp;
     fp = fopen(filename,"r");
     char c = fgetc(fp);
-
     if(fp == NULL)
     {
         printf("Error opening file; does the file exist?");
@@ -23,31 +22,32 @@ int read_file(char* filename, player* p1, map* m1)
         //Filling arr on stack with file contents
         while(!feof(fp) && i < MAPMAX)
         {
-            j=1;
+            j=0;
             while( c != '\n' && j < MAPMAX)
             {
-                c = fgetc(fp);
                 map[i][j] = c;
+                printf("added to map: %c\n",c);
+                c = fgetc(fp);
                 if(c == PLAYER_ID_CHAR)
                 {
                     printf("playerchar found: %c, at %d,%d\n",c,j,i);
-
                     p1->x = j;
                     p1->y = i;
                 }
                 j++;
             }
-
-            i++;
             c = fgetc(fp);
+            i++;
         }
 
         fclose(fp);
 
         //Setting map size for reference outside of function
-        m1->x_len = j-1;
-        m1->y_len = i-1;
+        m1->x_len = j+1;
+        m1->y_len = i+1;
 
+        printf("maplen = %d x %d",j,i);
+        
         //Allocating number of lines onto heap
         char** hmap = (char**) malloc(i*sizeof(char*)+1);
     

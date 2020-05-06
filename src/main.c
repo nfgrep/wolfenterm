@@ -17,27 +17,29 @@ int main()
 
     //The 'tips' of each ray the player casts
     p1.rays[0] = 40;
-    p1.rays[1] = -6;
+    p1.rays[1] = -15;
 
     p1.rays[2] = 40;
-    p1.rays[3] = -4;
+    p1.rays[3] = -10;
 
     p1.rays[4] = 40;
-    p1.rays[5] = -2;
+    p1.rays[5] = -5;
 
     p1.rays[6] = 40;
     p1.rays[7] = 0;
 
     p1.rays[8] = 40;
-    p1.rays[9] = 2;
+    p1.rays[9] = 5;
 
     p1.rays[10] = 40;
-    p1.rays[11] = 4;
+    p1.rays[11] = 10;
 
     p1.rays[12] = 40;
-    p1.rays[13] = 6;
+    p1.rays[13] = 15;
 
-    int dists[NUM_RAYS];
+
+
+    int dists[PLAYER_NUM_RAYS];
 
     //p1.rot = 0.78539816339; // pi/4 - 45deg in rad
     //p1.rot = 1.0471975512; // pi/3 - 60deg in rad, steeper than pi/4
@@ -55,7 +57,7 @@ int main()
         cast_rays(dists, &m1, &p1);
         p1.rot += 0.01;
         
-        for(int i=0; i< NUM_RAYS; i++)
+        for(int i=0; i< PLAYER_NUM_RAYS; i++)
         {
             printf("%d ",dists[i]);
         }

@@ -4,6 +4,6 @@
 #include "player.h"
 #include "map.h"
 
-int cast_rays(int* ray_results, map* m1, player* p1);
+void cast_rays(int* ray_results, map* m1, player* p1);
 
 #endif
