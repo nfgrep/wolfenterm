@@ -37,8 +37,6 @@ int main()
     p1.rays[12] = 40;
     p1.rays[13] = 6;
 
-
-
     int dists[NUM_RAYS];
 
     //p1.rot = 0.78539816339; // pi/4 - 45deg in rad

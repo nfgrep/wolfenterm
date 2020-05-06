@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #define PLAYER_ID_CHAR '2'
-#define NUM_PLR_RAYS 7
+#define PLAYER_NUM_RAYS 7
 
 typedef struct p
 {
