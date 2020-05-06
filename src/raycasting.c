@@ -9,9 +9,12 @@ void rot_line_abt_p0(int x0, int y0, int* x1, int* y1, double rot)
 {
     double cosT = cos(rot);
     double sinT = sin(rot);
-    int xN = (*x1 - x0), yN = (*y1 - y0);
-    *x1 = (((cosT * xN) + ((sinT * -1) * yN)) + x0);
-    *y1 = (((sinT * xN) + (cosT * xN)) + y0);
+    double xN = (*x1 - x0), yN = (*y1 - y0);
+    //printf("x1,y1: %d,%d Before Rot.",*x1,*y1);
+    *x1 = (((cosT * xN) + ((sinT * -1.0) * yN)) + x0);
+    *y1 = (((sinT * xN) + (cosT * yN)) + y0);
+    //printf("x1,y1: %d,%d After Rot.\n",*x1,*y1);
+    //printf("x0,y0: %d,%d",x0,y0);
 }
 
 int cast_rays(int* dists, map* m1, player* p1)
@@ -27,12 +30,13 @@ int cast_rays(int* dists, map* m1, player* p1)
         dist_count = 0;
         x0 = px;
         y0 = py;
-        x1 = p1->rays[i];
-        y1 = p1->rays[i+1];
 
-        //TODO:
+        //Have to add x0,y0 here, as rays[] is relative to player
+        x1 = p1->rays[i] + x0;
+        y1 = p1->rays[i+1] + y0;
+
         //Adding players rotation to each ray
-        //rot_line_abt_p0(x0,y0,&x1,&y1,p1->rot);
+        rot_line_abt_p0(x0,y0,&x1,&y1,p1->rot);
 
         //Bresenhams Line with int arith
         int dx = abs(x1-x0);
@@ -43,7 +47,7 @@ int cast_rays(int* dists, map* m1, player* p1)
     
         while(m1->data[y0][x0])
         {
-            printf("CURR: %c\n", m1->data[y0][x0]);
+            //printf("CURR: %c\n", m1->data[y0][x0]);
             if(x0==x1 && y0==y1) break;
             if(m1->data[y0][x0] != '0' && m1->data[y0][x0] != '2') break;
             e2 = 2*err;
@@ -59,6 +63,7 @@ int cast_rays(int* dists, map* m1, player* p1)
             }
             dist_count++;
         }
+        printf("Curr: %c\n",m1->data[y0][x0]);
         dists[i/2] = dist_count;
     }
     return 0;

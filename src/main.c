@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <math.h>
+
 int main()
 {
     map m1;
@@ -15,25 +17,25 @@ int main()
 
     //The 'tips' of each ray the player casts
     p1.rays[0] = 40;
-    p1.rays[1] = -3;
+    p1.rays[1] = -6;
 
     p1.rays[2] = 40;
-    p1.rays[3] = -2;
+    p1.rays[3] = -4;
 
     p1.rays[4] = 40;
-    p1.rays[5] = -1;
+    p1.rays[5] = -2;
 
     p1.rays[6] = 40;
     p1.rays[7] = 0;
 
     p1.rays[8] = 40;
-    p1.rays[9] = 1;
+    p1.rays[9] = 2;
 
     p1.rays[10] = 40;
-    p1.rays[11] = 2;
+    p1.rays[11] = 4;
 
     p1.rays[12] = 40;
-    p1.rays[13] = 3;
+    p1.rays[13] = 6;
 
 
 
@@ -42,17 +44,24 @@ int main()
     //p1.rot = 0.78539816339; // pi/4 - 45deg in rad
     //p1.rot = 1.0471975512; // pi/3 - 60deg in rad, steeper than pi/4
     //p1.rot = 1.308996939; // pi/3 - 60deg in rad, steeper than pi/4
-    p1.rot = 1.57079632679; // pi/3 - 60deg in rad, steeper than pi/4
+    //p1.rot = 1.57079632679; // pi/3 - 60deg in rad, steeper than pi/4
     //p1.rot = 0.26179938779; // pi/12 - shallow
+    p1.rot = M_PI/2;
 
     //Reading map data from file and storing in data member of map struct
     if(read_file("../map.txt", &p1, &m1)) exit(1);
     
-    cast_rays(dists, &m1, &p1);
-    
-    for(int i=0; i< NUM_RAYS; i++)
+    //GAMELOOP
+    while(p1.rot < 4.0)
     {
-        printf("%d ",dists[i]);
+        cast_rays(dists, &m1, &p1);
+        p1.rot += 0.01;
+        
+        for(int i=0; i< NUM_RAYS; i++)
+        {
+            printf("%d ",dists[i]);
+        }
+        printf("\n p1.rot: %f\n",p1.rot);
     }
 
     return 0;
