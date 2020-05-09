@@ -61,7 +61,7 @@ void cast_rays(int* dists, map* m1, player* p1)
                 dist_count++;
             }
         }
-        printf("(%d,%d): %c as dec: %d\n",x0,0,m1->data[y0][x0],m1->data[y0][x0]);
+        //printf("(%d,%d): %c as dec: %d\n",x0,0,m1->data[y0][x0],m1->data[y0][x0]);
         dists[i/2] = dist_count;
     }
 }

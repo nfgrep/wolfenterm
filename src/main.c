@@ -4,16 +4,43 @@
 #include "../inc/map.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>   //TODO: Remove
+#include <unistd.h>
+#include <pthread.h>
+#include <termios.h>    //TODO: can remove?? Need for input, may migrate to curses soon.
 
-#include <math.h>
+//TODO: Use Mutex, global vars bad, memory hazards!
+//Global for which key is currently pressed
+unsigned char inp_key = 0;
+
+void *input_thread(void *vargp)
+{
+    //Setting term input to not req return key
+    struct termios attr;
+    tcgetattr(0, &attr);
+    attr.c_lflag &= ~ICANON;
+    tcsetattr(0, TCSANOW, &attr);
+
+    while(1)
+    {
+        inp_key = getchar();
+        printf("Input: %c, %d\n",inp_key);
+    }
+}
 
 int main()
 {
+
     map m1;
+    
     player p1;
-   
+
+    int dists[PLAYER_NUM_RAYS];
+    
     p1.x = 0;
     p1.y = 0;
+
+    p1.rot = M_PI/2;
 
     //The 'tips' of each ray the player casts
     p1.rays[0] = 40;
@@ -37,31 +64,38 @@ int main()
     p1.rays[12] = 40;
     p1.rays[13] = 15;
 
-
-
-    int dists[PLAYER_NUM_RAYS];
-
-    //p1.rot = 0.78539816339; // pi/4 - 45deg in rad
-    //p1.rot = 1.0471975512; // pi/3 - 60deg in rad, steeper than pi/4
-    //p1.rot = 1.308996939; // pi/3 - 60deg in rad, steeper than pi/4
-    //p1.rot = 1.57079632679; // pi/3 - 60deg in rad, steeper than pi/4
-    //p1.rot = 0.26179938779; // pi/12 - shallow
-    p1.rot = M_PI/2;
-
     //Reading map data from file and storing in data member of map struct
     if(read_file("../map.txt", &p1, &m1)) exit(1);
-    
+   
+    //Starting input_thread()
+    pthread_t thid;
+    pthread_create(&thid, NULL, input_thread, NULL);
+
     //GAMELOOP
-    while(p1.rot < 4.0)
+    while(1)
     {
+        //Casting all rays for player and storing result in dists
         cast_rays(dists, &m1, &p1);
-        p1.rot += 0.01;
         
+        //TODO: Remove. Part of global var baddness
+        if(inp_key == 'd')
+        {
+            p1.rot += 0.01;
+        }
+        else if(inp_key == 'a')
+        {
+            p1.rot -= 0.01;
+        }
+        inp_key = 0;
+        //printf("### %c ###\n", inp_key);
+
+        //Printing results of ray dists
         for(int i=0; i< PLAYER_NUM_RAYS; i++)
         {
             printf("%d ",dists[i]);
         }
-        printf("\n p1.rot: %f\n",p1.rot);
+        printf("\n");
+        //printf(" p1.rot: %f\n",p1.rot);
     }
 
     return 0;
