@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <termios.h>    //TODO: can remove?? Need for input, may migrate to curses soon.
+#include <time.h>   //TODO: can remove? Used for delaying gameloop
 
 //TODO: Use Mutex, global vars bad, memory hazards!
 //Global for which key is currently pressed
@@ -24,7 +25,7 @@ void *input_thread(void *vargp)
     while(1)
     {
         inp_key = getchar();
-        printf("Input: %c, %d\n",inp_key);
+        //printf("Input: %c, %d\n",inp_key);
     }
 }
 
@@ -88,13 +89,20 @@ int main()
         }
         inp_key = 0;
         //printf("### %c ###\n", inp_key);
-
+        
         //Printing results of ray dists
         for(int i=0; i< PLAYER_NUM_RAYS; i++)
         {
-            printf("%d ",dists[i]);
+            printf("\n");
+            int h = 40 - dists[i];
+            for(int j=0; j< h; j++)
+            {
+                printf("X");
+            }
         }
         printf("\n");
+            clock_t stime = clock();
+            while(clock() < stime + 100000);
         //printf(" p1.rot: %f\n",p1.rot);
     }
 
