@@ -1,10 +1,11 @@
-#include "../inc/filehandling.h"
-#include "../inc/raycasting.h"
+#include "../inc/init.h"
+#include "../inc/geom.h"
+#include "../inc/raycast.h"
 #include "../inc/player.h"
 #include "../inc/map.h"
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>   //TODO: Remove
 #include <unistd.h>
 #include <pthread.h>
 #include <termios.h>    //TODO: can remove?? Need for input, may migrate to curses soon.
@@ -34,40 +35,12 @@ int main()
 
     map m1;
     
-    player p1;
+    player plr;
+
+    init("../map.txt", &m1, &plr);
 
     int dists[PLAYER_NUM_RAYS];
     
-    p1.x = 0;
-    p1.y = 0;
-
-    p1.rot = M_PI/2;
-
-    //The 'tips' of each ray the player casts
-    p1.rays[0] = 40;
-    p1.rays[1] = -15;
-
-    p1.rays[2] = 40;
-    p1.rays[3] = -10;
-
-    p1.rays[4] = 40;
-    p1.rays[5] = -5;
-
-    p1.rays[6] = 40;
-    p1.rays[7] = 0;
-
-    p1.rays[8] = 40;
-    p1.rays[9] = 5;
-
-    p1.rays[10] = 40;
-    p1.rays[11] = 10;
-
-    p1.rays[12] = 40;
-    p1.rays[13] = 15;
-
-    //Reading map data from file and storing in data member of map struct
-    if(read_file("../map.txt", &p1, &m1)) exit(1);
-   
     //Starting input_thread()
     pthread_t thid;
     pthread_create(&thid, NULL, input_thread, NULL);
@@ -76,16 +49,16 @@ int main()
     while(1)
     {
         //Casting all rays for player and storing result in dists
-        cast_rays(dists, &m1, &p1);
+        cast_rays(dists, &m1, &plr);
         
         //TODO: Remove. Part of global var baddness
         if(inp_key == 'd')
         {
-            p1.rot += 0.01;
+            plr.rot += 0.01;
         }
         else if(inp_key == 'a')
         {
-            p1.rot -= 0.01;
+            plr.rot -= 0.01;
         }
         inp_key = 0;
         //printf("### %c ###\n", inp_key);
@@ -93,7 +66,7 @@ int main()
         //Printing results of ray dists
         for(int i=0; i< PLAYER_NUM_RAYS; i++)
         {
-            printf("\n");
+            printf("dist: %d\n",dists[i]);
             int h = 40 - dists[i];
             for(int j=0; j< h; j++)
             {
@@ -101,9 +74,9 @@ int main()
             }
         }
         printf("\n");
-            clock_t stime = clock();
-            while(clock() < stime + 100000);
-        //printf(" p1.rot: %f\n",p1.rot);
+        clock_t stime = clock();
+        while(clock() < stime + 100000);
+        printf("plr.rot: %f\n",plr.rot);
     }
 
     return 0;

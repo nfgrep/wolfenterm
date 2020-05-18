@@ -1,39 +1,31 @@
-#include "../inc/raycasting.h"
+#include "../inc/raycast.h"
+#include "../inc/geom.h"
 #include "../inc/player.h"
 #include "../inc/map.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
-void rot_line_abt_p0(int x0, int y0, int* x1, int* y1, double rot)
-{
-    double cosT = cos(rot);
-    double sinT = sin(rot);
-    double xN = (*x1 - x0), yN = (*y1 - y0);
-    *x1 = (((cosT * xN) + ((sinT * -1.0) * yN)) + x0);
-    *y1 = (((sinT * xN) + (cosT * yN)) + y0);
-}
-
-void cast_rays(int* dists, map* m1, player* p1)
+void cast_rays(int* dists, map* m1, player* plr)
 {
     int dist_count;
-    int px = p1->x, py = p1->y;
+    int px = plr->x, py = plr->y;
     int x0, y0, x1, y1;
-    int i, len = PLAYER_NUM_RAYS * 2;
+    int i;
 
     //Iterates over arr of player rays
-    for(i=0; i<len; i+=2)
+    for(i=0; i<PLAYER_NUM_RAYS; i++)
     {
         dist_count = 0;
         x0 = px;
         y0 = py;
 
         //Have to add x0,y0 here, as rays[] is relative to player
-        x1 = p1->rays[i] + x0;
-        y1 = p1->rays[i+1] + y0;
+        x1 = plr->rays[i].x + x0;
+        y1 = plr->rays[i].y + y0;
 
         //Adding players rotation to each ray
-        rot_line_abt_p0(x0,y0,&x1,&y1,p1->rot);
+        rot_point(x0,y0,&x1,&y1,plr->rot);
 
         //Bresenhams Line with int arith
         int dx = abs(x1-x0);
@@ -62,10 +54,8 @@ void cast_rays(int* dists, map* m1, player* p1)
             }
         }
         //printf("(%d,%d): %c as dec: %d\n",x0,0,m1->data[y0][x0],m1->data[y0][x0]);
-        dists[i/2] = dist_count;
+        dists[i] = dist_count;
     }
 }
-
-
 
 

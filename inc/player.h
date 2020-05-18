@@ -1,15 +1,20 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+
+#include "geom.h"
+
 #define PLAYER_ID_CHAR '2'
-#define PLAYER_NUM_RAYS 7
+#define PLAYER_NUM_RAYS 21
+#define PLAYER_RAY_LEN 40
 
 typedef struct p
 {
     unsigned int x;
     unsigned int y; 
-    double rot; //players rotation in radians
-    //The x1 points for the end of each ray relative to the player
-    int rays[PLAYER_NUM_RAYS*2];
+    //players rotation in radians
+    double rot;
+    //The (x1,y1) of each ray relative to player
+    point rays[PLAYER_NUM_RAYS];
 }player;
 
 #endif
