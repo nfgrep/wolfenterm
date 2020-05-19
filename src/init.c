@@ -1,3 +1,5 @@
+//init.c
+//nfgrep 2020
 #include "../inc/player.h"
 #include "../inc/init.h"
 #include "../inc/map.h"

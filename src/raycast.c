@@ -1,3 +1,5 @@
+//raycast.c
+//nfgrep 2020
 #include "../inc/raycast.h"
 #include "../inc/geom.h"
 #include "../inc/player.h"
@@ -5,6 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+//TODO: Lone function in file? Move to main?
 
 void cast_rays(int* dists, map* m1, player* plr)
 {

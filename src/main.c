@@ -1,3 +1,5 @@
+//main.c
+//nfgrep 2020
 #include "../inc/init.h"
 #include "../inc/geom.h"
 #include "../inc/raycast.h"
