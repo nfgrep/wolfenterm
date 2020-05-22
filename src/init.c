@@ -85,22 +85,19 @@ int init(char* filename, map* m, player* plr)
     plr->rays[rmid].x = p1.x;
     plr->rays[rmid].y = p1.y;
     
-    //Mirrors each ray 'tip' over x axis
-    /*tried doing this with rot_point for more general initial
-      starting rotation but was off, think it was a precision error*/
-    for(ir=rmid+1; ir<PLAYER_NUM_RAYS; ir++)
+    for(ir=1; ir<rmid+1; ir++)
     {
         curangle += 0.05;
-        printf("FOR: plr->rays[%d]\n",ir);
+        printf("FOR: plr->rays[%d]\n",rmid+ir);
         rot_point(0, 0, &p1.x, &p1.y, curangle);
         printf("p1.x: %d, p1.y: %d angle: %f\n",p1.x, p1.y, curangle);
-        plr->rays[ir] = p1;
+        plr->rays[rmid+ir] = p1;
         rot_point(0, 0, &p2.x, &p2.y, -curangle);
-        //p2.x = p1.x;
-        //a2.y = -p1.y;
+        printf("FOR: plr->rays[%d]\n",rmid-ir);   
         printf("pi2.x: %d, p2.y: %d angle: %f\n",p2.x, p2.y, -curangle);
-        plr->rays[rmid - ir] = p2;
+        plr->rays[rmid-ir] = p2;
     }
+    printf("SEGG\n");
     for(int i=0; i<PLAYER_NUM_RAYS; i++) 
     {
         printf("plr.rays[%d]of%d: (%d,%d)\n",i,PLAYER_NUM_RAYS,plr->rays[i].x, plr->rays[i].y);
