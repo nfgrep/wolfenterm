@@ -87,7 +87,7 @@ int init(char* filename, map* m, player* plr)
     
     for(ir=1; ir<rmid+1; ir++)
     {
-        curangle += 0.05;
+        curangle += 0.01;
         printf("FOR: plr->rays[%d]\n",rmid+ir);
         rot_point(0, 0, &p1.x, &p1.y, curangle);
         printf("p1.x: %d, p1.y: %d angle: %f\n",p1.x, p1.y, curangle);
@@ -97,12 +97,10 @@ int init(char* filename, map* m, player* plr)
         printf("pi2.x: %d, p2.y: %d angle: %f\n",p2.x, p2.y, -curangle);
         plr->rays[rmid-ir] = p2;
     }
-    printf("SEGG\n");
     for(int i=0; i<PLAYER_NUM_RAYS; i++) 
     {
         printf("plr.rays[%d]of%d: (%d,%d)\n",i,PLAYER_NUM_RAYS,plr->rays[i].x, plr->rays[i].y);
     }
-    printf("??seg??"); 
     return 0;
 }
         

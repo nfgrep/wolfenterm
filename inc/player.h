@@ -4,7 +4,7 @@
 #include "geom.h"
 
 #define PLAYER_ID_CHAR '2'
-#define PLAYER_NUM_RAYS 21
+#define PLAYER_NUM_RAYS 41
 #define PLAYER_RAY_LEN 40
 
 typedef struct p
