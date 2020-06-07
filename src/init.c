@@ -67,8 +67,6 @@ int init(char* filename, map* m, player* plr)
     m->data = hmap;
 
     plr->rot = 0.0;
-    
-    double curangle = plr->rot;
 
     point p1;
     p1.x = PLAYER_RAY_LEN;
@@ -85,6 +83,8 @@ int init(char* filename, map* m, player* plr)
     plr->rays[rmid].x = p1.x;
     plr->rays[rmid].y = p1.y;
     
+    //Initing player rays via rotation: 
+    /*double curangle = plr->rot;
     for(ir=1; ir<rmid+1; ir++)
     {
         curangle += 0.01;
@@ -100,7 +100,22 @@ int init(char* filename, map* m, player* plr)
     for(int i=0; i<PLAYER_NUM_RAYS; i++) 
     {
         printf("plr.rays[%d]of%d: (%d,%d)\n",i,PLAYER_NUM_RAYS,plr->rays[i].x, plr->rays[i].y);
+    }*/
+
+    //Initing player rays via static values:
+    for(ir=1; ir<rmid+1; ir++)
+    {
+        printf("FOR: plr->rays[%d]\n",rmid+ir);
+        p1.y += 1;
+        plr->rays[rmid+ir] = p1;
+        printf("p1.x: %d, p1.y: %d\n",p1.x, p1.y);
+        printf("FOR: plr->rays[%d]\n",rmid-ir);   
+        p2.y -= 1;
+        plr->rays[rmid-ir] = p2;
+        printf("pi2.x: %d, p2.y: %d\n",p2.x, p2.y);
     }
+
+
     return 0;
 }
         
