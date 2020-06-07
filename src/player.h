@@ -14,7 +14,7 @@ typedef struct p
     //players rotation in radians
     double rot;
     //The (x1,y1) of each ray relative to player
-    point rays[PLAYER_NUM_RAYS];
+    line rays[PLAYER_NUM_RAYS];
 }player;
 
 #endif

@@ -1,10 +1,10 @@
 //main.c
 //nfgrep 2020
-#include "../inc/init.h"
-#include "../inc/geom.h"
-#include "../inc/raycast.h"
-#include "../inc/player.h"
-#include "../inc/map.h"
+#include "init.h"
+#include "geom.h"
+#include "raycast.h"
+#include "player.h"
+#include "map.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -42,7 +42,7 @@ int main()
     init("../map.txt", &m1, &plr);
 
     int dists[PLAYER_NUM_RAYS];
-    
+    printf("segg2?");    
     //Starting input_thread()
     pthread_t thid;
     pthread_create(&thid, NULL, input_thread, NULL);
@@ -56,11 +56,11 @@ int main()
         //TODO: Remove. Part of global var baddness
         if(inp_key == 'd')
         {
-            plr.rot += 0.01;
+            plr.rot += 0.1;
         }
         else if(inp_key == 'a')
         {
-            plr.rot -= 0.01;
+            plr.rot -= 0.1;
         }
         inp_key = 0;
         //printf("### %c ###\n", inp_key);

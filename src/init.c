@@ -1,9 +1,9 @@
 //init.c
 //nfgrep 2020
-#include "../inc/player.h"
-#include "../inc/init.h"
-#include "../inc/map.h"
-#include "../inc/geom.h"
+#include "player.h"
+#include "init.h"
+#include "map.h"
+#include "geom.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -68,10 +68,13 @@ int init(char* filename, map* m, player* plr)
 
     plr->rot = 0.0;
 
-    point p1;
-    p1.x = PLAYER_RAY_LEN;
-    p1.y = 0;
-    point p2 = p1;
+
+    line ln1;
+    ln1.x0 = plr->x;
+    ln1.y0 = plr->y;
+    ln1.x1 = ln1.x0 + PLAYER_RAY_LEN;
+    ln1.y1 = ln1.y0;
+    line ln2 = ln1;
 
     int
     rmid = (PLAYER_NUM_RAYS - 1)/2,
@@ -80,8 +83,7 @@ int init(char* filename, map* m, player* plr)
     printf("PLAYER_NUM_RAYS: %d\n",PLAYER_NUM_RAYS);
     printf("rmid: %d\n",rmid);
     
-    plr->rays[rmid].x = p1.x;
-    plr->rays[rmid].y = p1.y;
+    plr->rays[rmid] = ln1;
     
     //Initing player rays via rotation: 
     /*double curangle = plr->rot;
@@ -106,16 +108,18 @@ int init(char* filename, map* m, player* plr)
     for(ir=1; ir<rmid+1; ir++)
     {
         printf("FOR: plr->rays[%d]\n",rmid+ir);
-        p1.y += 1;
-        plr->rays[rmid+ir] = p1;
-        printf("p1.x: %d, p1.y: %d\n",p1.x, p1.y);
+        ln1.y0 += 0.2;
+        ln1.y1 += 0.2;
+        plr->rays[rmid+ir] = ln1;
+        printf("ln1.x0: %d, ln1.y0: %d\n",ln1.x0, ln1.y0);
         printf("FOR: plr->rays[%d]\n",rmid-ir);   
-        p2.y -= 1;
-        plr->rays[rmid-ir] = p2;
-        printf("pi2.x: %d, p2.y: %d\n",p2.x, p2.y);
+        ln2.y0 -= 0.2;
+        ln2.y1 -= 0.2;
+        plr->rays[rmid-ir] = ln2;
+        printf("ln2.x0: %d, ln2.y0: %d\n",ln2.x0, ln2.y0);
     }
 
-
+    printf("Segg?\n");
     return 0;
 }
         

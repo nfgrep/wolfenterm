@@ -1,6 +1,6 @@
-#include "../inc/geom.h"
-#include "../inc/player.h"
-#include "../inc/map.h"
+#include "geom.h"
+#include "player.h"
+#include "map.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
