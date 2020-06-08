@@ -56,11 +56,11 @@ int main()
         //TODO: Remove. Part of global var baddness
         if(inp_key == 'd')
         {
-            plr.rot += 0.1;
+            plr.rot += 0.05;
         }
         else if(inp_key == 'a')
         {
-            plr.rot -= 0.1;
+            plr.rot -= 0.05;
         }
         inp_key = 0;
         //printf("### %c ###\n", inp_key);

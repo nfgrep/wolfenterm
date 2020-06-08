@@ -108,13 +108,13 @@ int init(char* filename, map* m, player* plr)
     for(ir=1; ir<rmid+1; ir++)
     {
         printf("FOR: plr->rays[%d]\n",rmid+ir);
-        ln1.y0 += 0.2;
-        ln1.y1 += 0.2;
+        ln1.y0 += 1;
+        ln1.y1 += 1;
         plr->rays[rmid+ir] = ln1;
         printf("ln1.x0: %d, ln1.y0: %d\n",ln1.x0, ln1.y0);
         printf("FOR: plr->rays[%d]\n",rmid-ir);   
-        ln2.y0 -= 0.2;
-        ln2.y1 -= 0.2;
+        ln2.y0 -= 1;
+        ln2.y1 -= 1;
         plr->rays[rmid-ir] = ln2;
         printf("ln2.x0: %d, ln2.y0: %d\n",ln2.x0, ln2.y0);
     }

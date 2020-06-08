@@ -39,11 +39,9 @@ void cast_rays(int* dists, map* m1, player* plr)
         int dy = -abs(y1-y0);
         int sy = y0<y1 ? 1 : -1;
         int err = dx+dy, e2=0;
-        printf("M1->DATA: %c", m1->data[0][0]);
     
         while(m1->data[y0][x0])
         {
-            printf("CURR: %c\n", m1->data[y0][x0]);
             if(x0==x1 && y0==y1) break;
             if(m1->data[y0][x0] != '0' && m1->data[y0][x0] != '2') break;
             e2 = 2*err;
