@@ -68,7 +68,6 @@ int init(char* filename, map* m, player* plr)
 
     plr->rot = 0.0;
 
-
     line ln1;
     ln1.x0 = plr->x;
     ln1.y0 = plr->y;
@@ -76,9 +75,7 @@ int init(char* filename, map* m, player* plr)
     ln1.y1 = ln1.y0;
     line ln2 = ln1;
 
-    int
-    rmid = (PLAYER_NUM_RAYS - 1)/2,
-    ir;
+    int rmid = (PLAYER_NUM_RAYS - 1)/2, ir;
 
     printf("PLAYER_NUM_RAYS: %d\n",PLAYER_NUM_RAYS);
     printf("rmid: %d\n",rmid);
@@ -86,26 +83,27 @@ int init(char* filename, map* m, player* plr)
     plr->rays[rmid] = ln1;
     
     //Initing player rays via rotation: 
-    /*double curangle = plr->rot;
+    double curangle = plr->rot;
     for(ir=1; ir<rmid+1; ir++)
     {
         curangle += 0.01;
         printf("FOR: plr->rays[%d]\n",rmid+ir);
-        rot_point(0, 0, &p1.x, &p1.y, curangle);
-        printf("p1.x: %d, p1.y: %d angle: %f\n",p1.x, p1.y, curangle);
+        rot_point(&ln1.x0, &ln1.y0, &ln1.x1, &ln1.y1, curangle);
+        //printf("p1.x: %d, p1.y: %d angle: %f\n",ln1.x, p1.y, curangle);
         plr->rays[rmid+ir] = p1;
-        rot_point(0, 0, &p2.x, &p2.y, -curangle);
-        printf("FOR: plr->rays[%d]\n",rmid-ir);   
-        printf("pi2.x: %d, p2.y: %d angle: %f\n",p2.x, p2.y, -curangle);
+        rot_point(&ln2.x0, &ln2.y0, &ln2.x1, &ln2.y1, -curangle);
+        //printf("FOR: plr->rays[%d]\n",rmid-ir);   
+        //printf("pi2.x: %d, p2.y: %d angle: %f\n",p2.x, p2.y, -curangle);
         plr->rays[rmid-ir] = p2;
     }
+    
     for(int i=0; i<PLAYER_NUM_RAYS; i++) 
     {
         printf("plr.rays[%d]of%d: (%d,%d)\n",i,PLAYER_NUM_RAYS,plr->rays[i].x, plr->rays[i].y);
-    }*/
+    }
 
     //Initing player rays via static values:
-    for(ir=1; ir<rmid+1; ir++)
+    /*for(ir=1; ir<rmid+1; ir++)
     {
         printf("FOR: plr->rays[%d]\n",rmid+ir);
         ln1.y0 += 1;
@@ -117,7 +115,7 @@ int init(char* filename, map* m, player* plr)
         ln2.y1 -= 1;
         plr->rays[rmid-ir] = ln2;
         printf("ln2.x0: %d, ln2.y0: %d\n",ln2.x0, ln2.y0);
-    }
+    }*/
 
     printf("Segg?\n");
     return 0;
