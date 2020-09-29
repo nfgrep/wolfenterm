@@ -27,7 +27,8 @@ void cast_rays(int* dists, map* m1, player* p1)
         dist_count = 0;
         x0 = px;
         y0 = py;
-
+	
+	//TODO: make a point type?
         //Have to add x0,y0 here, as rays[] is relative to player
         x1 = p1->rays[i] + x0;
         y1 = p1->rays[i+1] + y0;
