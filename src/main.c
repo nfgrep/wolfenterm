@@ -65,19 +65,25 @@ int main()
 //    p1.rays[12] = 40;
 //    p1.rays[13] = 15;
 	
-	//TODO: given fov and num rays generate the ray-tips
-	for(int i=0; i<PLAYER_NUM_RAYS; i++)
-	{
-		p1.rays[i]	
-	}
 
     //Reading map data from file and storing in data member of map struct
     if(read_file("../map.txt", &p1, &m1)) exit(1);
-   
+
+    //Generating player rays
+    double curr_rot = p1.rot - (FOV/2.0);
+    double max_rot = p1.rot + (FOV/2.0);
+    double rot_inc = FOV/PLAYER_NUM_RAYS;
+    
+    while(curr_rot <= max_rot)
+    {
+        rot_line_abt_p0(p1.x,p1.y,p1.rays[i].x,p1.rays[i].y,curr_rot ); 
+        curr_rot += rot_inc;
+    }
+
     //Starting input_thread()
     pthread_t thid;
     pthread_create(&thid, NULL, input_thread, NULL);
-
+/*
     //GAMELOOP
     while(1)
     {
@@ -111,7 +117,7 @@ int main()
             while(clock() < stime + 100000);
         //printf(" p1.rot: %f\n",p1.rot);
     }
-
+*/
     return 0;
 
 }
