@@ -44,26 +44,32 @@ int main()
     p1.rot = M_PI/2;
 
     //The 'tips' of each ray the player casts
-    p1.rays[0] = 40;
-    p1.rays[1] = -15;
-
-    p1.rays[2] = 40;
-    p1.rays[3] = -10;
-
-    p1.rays[4] = 40;
-    p1.rays[5] = -5;
-
-    p1.rays[6] = 40;
-    p1.rays[7] = 0;
-
-    p1.rays[8] = 40;
-    p1.rays[9] = 5;
-
-    p1.rays[10] = 40;
-    p1.rays[11] = 10;
-
-    p1.rays[12] = 40;
-    p1.rays[13] = 15;
+//    p1.rays[0] = 40;
+//    p1.rays[1] = -15;
+//
+//    p1.rays[2] = 40;
+//    p1.rays[3] = -10;
+//
+//    p1.rays[4] = 40;
+//    p1.rays[5] = -5;
+//
+//    p1.rays[6] = 40;
+//    p1.rays[7] = 0;
+//
+//    p1.rays[8] = 40;
+//    p1.rays[9] = 5;
+//
+//    p1.rays[10] = 40;
+//    p1.rays[11] = 10;
+//
+//    p1.rays[12] = 40;
+//    p1.rays[13] = 15;
+	
+	//TODO: given fov and num rays generate the ray-tips
+	for(int i=0; i<PLAYER_NUM_RAYS; i++)
+	{
+		p1.rays[i]	
+	}
 
     //Reading map data from file and storing in data member of map struct
     if(read_file("../map.txt", &p1, &m1)) exit(1);

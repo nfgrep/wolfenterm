@@ -1,7 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #define PLAYER_ID_CHAR '2'
-#define PLAYER_NUM_RAYS 7
+#define PLAYER_NUM_RAYS 12
+#define FOV 0.87
 
 typedef struct p
 {
