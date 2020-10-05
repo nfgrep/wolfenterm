@@ -1,5 +1,4 @@
 #include "../inc/filehandling.h"
-#include "../inc/raycasting.h"
 #include "../inc/player.h"
 #include "../inc/geom.h"
 #include <stdio.h>
@@ -26,7 +25,8 @@ void *input_thread(void *vargp)
     {
         inp_key = getchar();
         //printf("Input: %c, %d\n",inp_key);
-    }geom
+    }
+}
 int main()
 {
 
@@ -41,40 +41,24 @@ int main()
 
     p1.rot = M_PI/2;
 
-    //The 'tips' of each ray the player casts
-//    p1.rays[0] = 40;
-//    p1.rays[1] = -15;
-//
-//    p1.rays[2] = 40;
-//    p1.rays[3] = -10;
-//
-//    p1.rays[4] = 40;
-//    p1.rays[5] = -5;
-//
-//    p1.rays[6] = 40;
-//    p1.rays[7] = 0;
-//
-//    p1.rays[8] = 40;
-//    p1.rays[9] = 5;
-//
-//    p1.rays[10] = 40;
-//    p1.rays[11] = 10;
-//
-//    p1.rays[12] = 40;
-//    p1.rays[13] = 15;
-	
-
+    //TODO: make this an arg
     //Reading map data from file and storing in data member of map struct
-    if(read_file("../map.txt", &p1, &m1)) exit(1);
+    char* map_fname = "../map.txt";
+    if(read_file(map_fname, &p1, &m1)) exit(1);
 
-    //Generating player rays
+    //Generating/Initializing player rays
     double curr_rot = p1.rot - (FOV/2.0);
     double max_rot = p1.rot + (FOV/2.0);
     double rot_inc = FOV/PLAYER_NUM_RAYS;
+    int ir;
 
-    while(curr_rot <= max_rot)
+    for(ir=0;ir<PLAYER_NUM_RAYS;ir++)
     {
-        rot_line_abt_p0(p1.x,p1.y,p1.rays[i].x,p1.rays[i].y,curr_rot ); 
+        p1.rays[ir].x = PLAYER_RAY_LEN;
+        p1.rays[ir].y = p1.y;
+        printf("--before rot-- p1.rays[ir].x: %d, p1.rays[ir].y: %d\n",p1.rays[ir].x,p1.rays[ir].y);
+        rot_point_abt(p1.x,p1.y,&p1.rays[ir].x,&p1.rays[ir].y,curr_rot); 
+        printf("--after rot-- p1.rays[ir].x: %d, p1.rays[ir].y: %d\n",p1.rays[ir].x,p1.rays[ir].y);
         curr_rot += rot_inc;
     }
 
@@ -86,6 +70,7 @@ int main()
     while(1)
     {
         //Casting all rays for player and storing result in dists
+        update_player(&p1);
         cast_rays(dists, &m1, &p1);
         
         //TODO: Remove. Part of global var baddness

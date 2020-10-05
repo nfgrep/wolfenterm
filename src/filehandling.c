@@ -1,11 +1,10 @@
 #include "../inc/player.h"
 #include "../inc/filehandling.h"
-#include "../inc/map.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-int read_file(char* filename, player* p1, map* m1)
+int read_file(char* filename, player* p1, char*** m1)
 {
     short i=0, j=0;
     char map[MAPMAX][MAPMAX] ={ 0 };
@@ -42,10 +41,6 @@ int read_file(char* filename, player* p1, map* m1)
 
         fclose(fp);
 
-        //Setting map size for reference outside of function
-        m1->x_len = j+1;
-        m1->y_len = i+1;
-
         printf("maplen = %d x %d",j,i);
         
         //Allocating number of lines onto heap
@@ -60,7 +55,7 @@ int read_file(char* filename, player* p1, map* m1)
             memcpy(*(hmap+k),*(map+k),j+1);
         }
 
-        m1->data = hmap;
+        *m1 = hmap;
 
         return 0;
     }
