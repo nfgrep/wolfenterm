@@ -36,8 +36,8 @@ int main()
 
     int dists[PLAYER_NUM_RAYS];
     
-    p1.x = 0;
-    p1.y = 0;
+    p1.pos.x = 0;
+    p1.pos.y = 0;
 
     //Must start at 0
     p1.rot = 0;
@@ -56,7 +56,7 @@ int main()
     // initializing rays to 0 position
     for(ir=0;ir<PLAYER_NUM_RAYS;ir++)
     { 
-        p1.rays[ir].x = p1.x;
+        p1.rays[ir].x = p1.pos.x;
         p1.rays[ir].y = PLAYER_RAY_LEN;
     }
 
@@ -64,35 +64,43 @@ int main()
     for(ir=(PLAYER_NUM_RAYS/2)-1;ir>=0;ir--)
     {
         printf("rotating by: %f\n",curr_rot);
-        rot_point_abt(p1.x,p1.y,&p1.rays[ir].x,&p1.rays[ir].y,curr_rot); 
-        rot_point_abt(p1.x,p1.y,&p1.rays[end_idx-ir].x,&p1.rays[end_idx-ir].y,-curr_rot); 
+        rot_point_abt(p1.pos.x,p1.pos.y,&p1.rays[ir].x,&p1.rays[ir].y,curr_rot); 
+        rot_point_abt(p1.pos.x,p1.pos.y,&p1.rays[end_idx-ir].x,&p1.rays[end_idx-ir].y,-curr_rot); 
         printf("pos: %d and %d",ir,end_idx-ir);
         printf("--after rot-- p1.rays[ir].x: %d, p1.rays[ir].y: %d\n",p1.rays[ir].x,p1.rays[ir].y);
         printf("--after rot-- p1.rays[ir].x: %d, p1.rays[ir].y: %d\n",p1.rays[end_idx-ir].x,p1.rays[end_idx-ir].y);
         curr_rot += rot_inc;
     }
 
-    printf("middle ray: %d,%d\n",p1.rays[2].x,p1.rays[2].y);
+    for(ir=0;ir<40;ir++)
+    {
+        for(int ic=0;ic<20; ic++)
+        {
+            printf("%c",m1[ic][ir]);
+        }
+        printf("\n");
+    }
 
     //Starting input_thread()
     pthread_t thid;
     pthread_create(&thid, NULL, input_thread, NULL);
-/*
+
     //GAMELOOP
     while(1)
     {
         //Casting all rays for player and storing result in dists
-        update_player(&p1);
-        cast_rays(dists, &m1, &p1);
-        
+        cast_rays_from(dists, m1, p1.pos, p1.rays);
+        printf("player rotation: %f\n",p1.rot); 
         //TODO: Remove. Part of global var baddness
         if(inp_key == 'd')
         {
-            p1.rot += 0.1;
+            update_player(&p1);
+            p1.rot += 0.01;
         }
         else if(inp_key == 'a')
         {
-            p1.rot -= 0.1;
+            update_player(&p1);
+            p1.rot -= 0.01;
         }
         inp_key = 0;
         //printf("### %c ###\n", inp_key);
@@ -101,7 +109,7 @@ int main()
         for(int i=0; i< PLAYER_NUM_RAYS; i++)
         {
             printf("\n");
-            int h = 40 - dists[i];
+            int h = PLAYER_RAY_LEN - dists[i];
             for(int j=0; j< h; j++)
             {
                 printf("X");
@@ -112,7 +120,7 @@ int main()
             while(clock() < stime + 100000);
         //printf(" p1.rot: %f\n",p1.rot);
     }
-*/
+
     return 0;
 
 }

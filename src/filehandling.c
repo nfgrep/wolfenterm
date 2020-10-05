@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+//TODO: make this more generic
 int read_file(char* filename, player* p1, char*** m1)
 {
     short i=0, j=0;
@@ -30,8 +31,8 @@ int read_file(char* filename, player* p1, char*** m1)
                 if(c == PLAYER_ID_CHAR)
                 {
                     printf("playerchar found: %c, at %d,%d\n",c,j,i);
-                    p1->x = j;
-                    p1->y = i;
+                    p1->pos.x = j;
+                    p1->pos.y = i;
                 }
                 j++;
             }

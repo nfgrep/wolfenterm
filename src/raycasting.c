@@ -65,13 +65,17 @@ void cast_rays_from(int* dists, char** m1, point ray_start, point* ray_ends)
     int dist_count;
     int x0 = ray_start.x, y0 = ray_start.y;
     int x1, y1;
-    int i, len = PLAYER_NUM_RAYS;
+    int i;
 
+    //TODO: make cast_ray function
     //Iterates over arr of player rays
-    for(i=0; i<len; i++)
+    for(i=0; i<PLAYER_NUM_RAYS; i++)
     {
         dist_count = 0;
-	
+        	
+        printf("ray_ends[%d]: (%d,%d)\n",i,ray_ends[i].x,ray_ends[i].y);
+        x0 = ray_start.x;
+        y0 = ray_start.y;
         x1 = ray_ends[i].x;
         y1 = ray_ends[i].y;
 
@@ -101,7 +105,7 @@ void cast_rays_from(int* dists, char** m1, point ray_start, point* ray_ends)
                 dist_count++;
             }
         }
-        //printf("(%d,%d): %c as dec: %d\n",x0,0,m1->data[y0][x0],m1->data[y0][x0]);
+        printf("(%d,%d): %c as dec: %d\n",x0,y0,m1[y0][x0],m1[y0][x0]);
         dists[i] = dist_count;
     }
 }
