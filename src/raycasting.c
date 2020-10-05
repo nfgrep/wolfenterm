@@ -1,6 +1,6 @@
 #include "../inc/raycasting.h"
 #include "../inc/player.h"
-#include "../inc/map.h"
+#include "../inc/geom.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>

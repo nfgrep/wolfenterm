@@ -1,7 +1,7 @@
 #include "../inc/filehandling.h"
 #include "../inc/raycasting.h"
 #include "../inc/player.h"
-#include "../inc/map.h"
+#include "../inc/geom.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>   //TODO: Remove
@@ -26,13 +26,11 @@ void *input_thread(void *vargp)
     {
         inp_key = getchar();
         //printf("Input: %c, %d\n",inp_key);
-    }
-}
-
+    }geom
 int main()
 {
 
-    map m1;
+    char** m1;
     
     player p1;
 
@@ -73,7 +71,7 @@ int main()
     double curr_rot = p1.rot - (FOV/2.0);
     double max_rot = p1.rot + (FOV/2.0);
     double rot_inc = FOV/PLAYER_NUM_RAYS;
-    
+
     while(curr_rot <= max_rot)
     {
         rot_line_abt_p0(p1.x,p1.y,p1.rays[i].x,p1.rays[i].y,curr_rot ); 
