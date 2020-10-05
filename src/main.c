@@ -39,7 +39,8 @@ int main()
     p1.x = 0;
     p1.y = 0;
 
-    p1.rot = M_PI/2;
+    //Must start at 0
+    p1.rot = 0;
 
     //TODO: make this an arg
     //Reading map data from file and storing in data member of map struct
@@ -47,20 +48,31 @@ int main()
     if(read_file(map_fname, &p1, &m1)) exit(1);
 
     //Generating/Initializing player rays
-    double curr_rot = p1.rot - (FOV/2.0);
-    double max_rot = p1.rot + (FOV/2.0);
     double rot_inc = FOV/PLAYER_NUM_RAYS;
-    int ir;
+    double curr_rot = (PLAYER_NUM_RAYS%2) ?  p1.rot + rot_inc : p1.rot + (rot_inc/2);
+    double max_rot = p1.rot + (FOV/2.0);
+    int ir, end_idx = PLAYER_NUM_RAYS-1;
 
+    // initializing rays to 0 position
     for(ir=0;ir<PLAYER_NUM_RAYS;ir++)
+    { 
+        p1.rays[ir].x = p1.x;
+        p1.rays[ir].y = PLAYER_RAY_LEN;
+    }
+
+    // generating and setting rays
+    for(ir=(PLAYER_NUM_RAYS/2)-1;ir>=0;ir--)
     {
-        p1.rays[ir].x = PLAYER_RAY_LEN;
-        p1.rays[ir].y = p1.y;
-        printf("--before rot-- p1.rays[ir].x: %d, p1.rays[ir].y: %d\n",p1.rays[ir].x,p1.rays[ir].y);
+        printf("rotating by: %f\n",curr_rot);
         rot_point_abt(p1.x,p1.y,&p1.rays[ir].x,&p1.rays[ir].y,curr_rot); 
+        rot_point_abt(p1.x,p1.y,&p1.rays[end_idx-ir].x,&p1.rays[end_idx-ir].y,-curr_rot); 
+        printf("pos: %d and %d",ir,end_idx-ir);
         printf("--after rot-- p1.rays[ir].x: %d, p1.rays[ir].y: %d\n",p1.rays[ir].x,p1.rays[ir].y);
+        printf("--after rot-- p1.rays[ir].x: %d, p1.rays[ir].y: %d\n",p1.rays[end_idx-ir].x,p1.rays[end_idx-ir].y);
         curr_rot += rot_inc;
     }
+
+    printf("middle ray: %d,%d\n",p1.rays[2].x,p1.rays[2].y);
 
     //Starting input_thread()
     pthread_t thid;

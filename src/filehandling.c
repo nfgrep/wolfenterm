@@ -41,7 +41,7 @@ int read_file(char* filename, player* p1, char*** m1)
 
         fclose(fp);
 
-        printf("maplen = %d x %d",j,i);
+        printf("maplen = %d x %d\n",j,i);
         
         //Allocating number of lines onto heap
         char** hmap = (char**) malloc(i*sizeof(char*)+1);
