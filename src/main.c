@@ -38,9 +38,12 @@ int main()
     
     p1.pos.x = 0;
     p1.pos.y = 0;
+    p1.opos.x = 0;
+    p1.opos.y = 0;
 
     //Must start at 0
     p1.rot = 0;
+    p1.orot = 0;
 
     //TODO: make this an arg
     //Reading map data from file and storing in data member of map struct
@@ -64,8 +67,8 @@ int main()
     for(ir=(PLAYER_NUM_RAYS/2)-1;ir>=0;ir--)
     {
         printf("rotating by: %f\n",curr_rot);
-        rot_point_abt(p1.pos.x,p1.pos.y,&p1.rays[ir].x,&p1.rays[ir].y,curr_rot); 
-        rot_point_abt(p1.pos.x,p1.pos.y,&p1.rays[end_idx-ir].x,&p1.rays[end_idx-ir].y,-curr_rot); 
+        rot_fpoint_abt(p1.pos.x,p1.pos.y,&p1.rays[ir].x,&p1.rays[ir].y,curr_rot); 
+        rot_fpoint_abt(p1.pos.x,p1.pos.y,&p1.rays[end_idx-ir].x,&p1.rays[end_idx-ir].y,-curr_rot); 
         printf("pos: %d and %d",ir,end_idx-ir);
         printf("--after rot-- p1.rays[ir].x: %d, p1.rays[ir].y: %d\n",p1.rays[ir].x,p1.rays[ir].y);
         printf("--after rot-- p1.rays[ir].x: %d, p1.rays[ir].y: %d\n",p1.rays[end_idx-ir].x,p1.rays[end_idx-ir].y);
@@ -90,17 +93,19 @@ int main()
     {
         //Casting all rays for player and storing result in dists
         cast_rays_from(dists, m1, p1.pos, p1.rays);
+        
+        printf("player:\n pos: (%f,%f)\n opos(%f,%f)\n rot(%f)\n orot(%f)",p1.pos.x,p1.pos.y,p1.opos.x,p1.opos.y,p1.rot,p1.orot);
+
+        update_player(&p1);
         printf("player rotation: %f\n",p1.rot); 
         //TODO: Remove. Part of global var baddness
         if(inp_key == 'd')
         {
-            update_player(&p1);
-            p1.rot += 0.01;
+            p1.rot -= 0.01;
         }
         else if(inp_key == 'a')
         {
-            update_player(&p1);
-            p1.rot -= 0.01;
+            p1.rot += 0.01;
         }
         inp_key = 0;
         //printf("### %c ###\n", inp_key);

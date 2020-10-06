@@ -13,6 +13,15 @@ void rot_point_abt(int x0, int y0, int* x1, int* y1, double rot)
     *y1 = (((sinT * xN) + (cosT * yN)) + y0);
 }
 
+void rot_fpoint_abt(int x0, int y0, double* x1, double* y1, double rot)
+{
+    double cosT = cos(rot);
+    double sinT = sin(rot);
+    double xN = (*x1 - x0), yN = (*y1 - y0);
+    *x1 = (((cosT * xN) + ((sinT * -1.0) * yN)) + x0);
+    *y1 = (((sinT * xN) + (cosT * yN)) + y0);
+}
+
 void cast_rays(int* dists, char** m1, line* rays)
 {
     int dist_count;
@@ -60,7 +69,7 @@ void cast_rays(int* dists, char** m1, line* rays)
     }
 }
 
-void cast_rays_from(int* dists, char** m1, point ray_start, point* ray_ends)
+void cast_rays_from(int* dists, char** m1, fpoint ray_start, fpoint* ray_ends)
 {
     int dist_count;
     int x0 = ray_start.x, y0 = ray_start.y;

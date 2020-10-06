@@ -33,6 +33,8 @@ int read_file(char* filename, player* p1, char*** m1)
                     printf("playerchar found: %c, at %d,%d\n",c,j,i);
                     p1->pos.x = j;
                     p1->pos.y = i;
+                    p1->opos.x = j;
+                    p1->opos.y = i;
                 }
                 j++;
             }
