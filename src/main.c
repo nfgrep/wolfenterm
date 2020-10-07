@@ -68,7 +68,9 @@ int main()
     {
         printf("rotating by: %f\n",curr_rot);
         rot_fpoint_abt(p1.pos.x,p1.pos.y,&p1.rays[ir].x,&p1.rays[ir].y,curr_rot); 
+        p1.rays[ir].angle_offset = curr_rot;
         rot_fpoint_abt(p1.pos.x,p1.pos.y,&p1.rays[end_idx-ir].x,&p1.rays[end_idx-ir].y,-curr_rot); 
+        p1.rays[end_idx-ir].angle_offset = -curr_rot;
         printf("pos: %d and %d",ir,end_idx-ir);
         printf("--after rot-- p1.rays[ir].x: %d, p1.rays[ir].y: %d\n",p1.rays[ir].x,p1.rays[ir].y);
         printf("--after rot-- p1.rays[ir].x: %d, p1.rays[ir].y: %d\n",p1.rays[end_idx-ir].x,p1.rays[end_idx-ir].y);
@@ -94,18 +96,18 @@ int main()
         //Casting all rays for player and storing result in dists
         cast_rays_from(dists, m1, p1.pos, p1.rays);
         
-        printf("player:\n pos: (%f,%f)\n opos(%f,%f)\n rot(%f)\n orot(%f)",p1.pos.x,p1.pos.y,p1.opos.x,p1.opos.y,p1.rot,p1.orot);
+        printf("player:\n pos: (%f,%f)\n opos(%f,%f)\n rot(%f)\n orot(%f)\n",p1.pos.x,p1.pos.y,p1.opos.x,p1.opos.y,p1.rot,p1.orot);
 
         update_player(&p1);
         printf("player rotation: %f\n",p1.rot); 
         //TODO: Remove. Part of global var baddness
         if(inp_key == 'd')
         {
-            p1.rot -= 0.01;
+            p1.rot -= 0.1;
         }
         else if(inp_key == 'a')
         {
-            p1.rot += 0.01;
+            p1.rot += 0.1;
         }
         inp_key = 0;
         //printf("### %c ###\n", inp_key);

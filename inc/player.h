@@ -11,12 +11,12 @@ typedef struct p
     // opos and orot are "old rot" and "old pos"
     // used in update_player to rotate and shift the
     // rays[] to reflect the difference on each iter of gameloop
-    fpoint pos;
-    fpoint opos;
+    point pos;
+    point opos;
     double rot;
     double orot;
     // The x1 points for the end of each ray relative to the player
-    fpoint rays[PLAYER_NUM_RAYS];
+    ray rays[PLAYER_NUM_RAYS];
 }player;
 
 int update_player(player* plr);
