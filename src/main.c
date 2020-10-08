@@ -96,7 +96,7 @@ int main()
         //Casting all rays for player and storing result in dists
         cast_rays_from(dists, m1, p1.pos, p1.rays);
         
-        printf("player:\n pos: (%f,%f)\n opos(%f,%f)\n rot(%f)\n orot(%f)\n",p1.pos.x,p1.pos.y,p1.opos.x,p1.opos.y,p1.rot,p1.orot);
+        printf("player:\n pos: (%d,%d)\n opos(%d,%d)\n rot(%f)\n orot(%f)\n",p1.pos.x,p1.pos.y,p1.opos.x,p1.opos.y,p1.rot,p1.orot);
 
         update_player(&p1);
         printf("player rotation: %f\n",p1.rot); 
@@ -108,6 +108,14 @@ int main()
         else if(inp_key == 'a')
         {
             p1.rot += 0.1;
+        }
+        else if(inp_key == 's')
+        {
+            p1.pos.y -= 1;
+        }
+        else if(inp_key == 'w')
+        {
+            p1.pos.y += 1;
         }
         inp_key = 0;
         //printf("### %c ###\n", inp_key);

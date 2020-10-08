@@ -165,7 +165,7 @@ void get_view_dists(int* dists, char** m1, point ray_start, ray* ray_ends, doubl
             }
         }
         printf("(%d,%d): %c as dec: %d\n",x0,y0,m1[y0][x0],m1[y0][x0]);
-        dists[i] = dist_count * cos(ray_ends[i].angle_offset + plr_rot);
+        dists[i] = dist_count * cos(ray_ends[i].angle_offset);
     }
 }
 

@@ -16,5 +16,6 @@ int update_player(player* plr)
         plr->rays[i].x += px_diff;
         plr->rays[i].y += py_diff;
         rot_fpoint_abt(plr->pos.x,plr->pos.y,&plr->rays[i].x,&plr->rays[i].y,pr_diff);
+        plr->rays[i].angle_offset += pr_diff;
     }
 }
