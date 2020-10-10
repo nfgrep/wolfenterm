@@ -7,7 +7,7 @@
 //TODO: make this more generic
 int read_file(char* filename, player* p1, char*** m1)
 {
-    short i=0, j=0;
+    short ix=0, iy=0;
     char map[MAPMAX][MAPMAX] ={ 0 };
     FILE *fp;
     fp = fopen(filename,"r");
@@ -20,42 +20,42 @@ int read_file(char* filename, player* p1, char*** m1)
     else
     {
         //Filling arr on stack with file contents
-        while(!feof(fp) && i < MAPMAX)
+        while(!feof(fp) && ix < MAPMAX)
         {
-            j=0;
-            while( c != '\n' && j < MAPMAX)
+            iy=0;
+            while( c != '\n' && iy < MAPMAX)
             {
-                map[i][j] = c;
+                map[ix][iy] = c;
                 printf("added to map: %c\n",c);
                 c = fgetc(fp);
                 if(c == PLAYER_ID_CHAR)
                 {
-                    printf("playerchar found: %c, at %d,%d\n",c,j,i);
-                    p1->pos.x = j;
-                    p1->pos.y = i;
-                    p1->opos.x = j;
-                    p1->opos.y = i;
+                    printf("playerchar found: %c, at %d,%d\n",c,ix,iy);
+                    p1->pos.x = ix;
+                    p1->pos.y = iy;
+                    p1->opos.x = ix;
+                    p1->opos.y = iy;
                 }
-                j++;
+                iy++;
             }
             c = fgetc(fp);
-            i++;
+            ix++;
         }
 
         fclose(fp);
 
-        printf("maplen = %d x %d\n",j,i);
+        printf("maplen = %d x %d\n",ix,iy);
         
         //Allocating number of lines onto heap
-        char** hmap = (char**) malloc(i*sizeof(char*)+1);
+        char** hmap = (char**) malloc(ix*sizeof(char*)+1);
     
         //Allocating characters within lines onto heap
-        for(char k=0; k<i+1; k++)
+        for(char k=0; k<ix+1; k++)
         {
-            *(hmap+k) = (char*) malloc(j+1);
+            *(hmap+k) = (char*) malloc(iy+1);
        
             //Copying contents of stack arr onto heap
-            memcpy(*(hmap+k),*(map+k),j+1);
+            memcpy(*(hmap+k),*(map+k),iy+1);
         }
 
         *m1 = hmap;
