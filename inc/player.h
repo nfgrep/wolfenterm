@@ -2,7 +2,7 @@
 #define PLAYER_H
 #define PLAYER_ID_CHAR '2'
 #define PLAYER_NUM_RAYS 20
-#define PLAYER_RAY_LEN 40
+#define PLAYER_RAY_LEN 100
 #define FOV 0.8
 #include "geom.h"
 

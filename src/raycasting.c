@@ -55,13 +55,13 @@ void cast_rays(int* dists, char** m1, line* rays)
             {
                 err += dy;
                 x0 += sx;
-                dist_count++;
+                dist_count+=16;
             }
             if(e2 <= dx)
             {
                 err += dx;
                 y0 += sy;
-                dist_count++;
+                dist_count+=16;
             }
         }
         //printf("(%d,%d): %c as dec: %d\n",x0,0,m1->data[y0][x0],m1->data[y0][x0]);
